@@ -1,0 +1,29 @@
+
+
+
+<%= render 'userinfo', user: @user %>
+<%= render 'books/newbook', book: @book %>
+
+
+<h2>Users</h2>
+<table>
+  <thaed>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+    </tr>
+  </thaed>
+</table>
+<tbody>
+  <% @users.each do |user| %>
+  <tr>
+    <td>
+      <%= image_tag user.get_profile_image(100,100) %>
+    </td>
+    <td>
+      <%= user.name %>
+    </td>
+    <%= link_to 'show', user_path(user.id) %>
+  </tr>
+  <% end %>
+</tbody>

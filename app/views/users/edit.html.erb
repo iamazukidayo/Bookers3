@@ -1,0 +1,16 @@
+
+<h1>User info</h1>
+
+<%= form_with model: @user do |f| %>
+  <lavel for="user_name">Name</lavel>
+   <%= f.text_field :name, autofocus: true, id:"user_name", placeholder:"名前" %>
+   
+   <label for="user_image">Image</label>
+   <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+   
+  <label for="user_introduction">Introduction</label>
+   <%= f.text_area :introduction, autofocus: true, id:"user_introduction", placeholder:"自己紹介文" %>
+   
+   <%= f.submit "Update" %>
+<% end %>
+
