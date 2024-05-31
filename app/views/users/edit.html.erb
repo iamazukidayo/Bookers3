@@ -1,16 +1,27 @@
-
+<div class="container">
+ <div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
 <h1>User info</h1>
 
 <%= form_with model: @user do |f| %>
-  <lavel for="user_name">Name</lavel>
-   <%= f.text_field :name, autofocus: true, id:"user_name", placeholder:"名前" %>
-   
-   <label for="user_image">Image</label>
-   <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
-   
-  <label for="user_introduction">Introduction</label>
-   <%= f.text_area :introduction, autofocus: true, id:"user_introduction", placeholder:"自己紹介文" %>
-   
-   <%= f.submit "Update" %>
-<% end %>
 
+<div class="form-group">
+  <p><lavel for="user_name">Name</lavel></p>
+   <p><%= f.text_field :name, autofocus: true, id:"user_name", placeholder:"name" %></p>
+</div>
+  
+<div class="form-group"> 
+  <p><label for="user_image">Image</label></p>
+ <p><%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %></p>
+</div>
+
+<div class="form-group">   
+<p><label for="user_introduction">Introduction</label></p>
+ <p><%= f.text_area :introduction, autofocus: true, id:"user_introduction", placeholder:"introduction" %></p>
+</div>
+   
+   <%= f.submit "Update User" %>
+<% end %>
+   </div>
+  </div>
+</div>
