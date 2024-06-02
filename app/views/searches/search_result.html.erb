@@ -1,0 +1,38 @@
+<div class='container px-5 px-sm-0'>
+
+<table class="table table-hover table-inverse">
+  <div class='col-md-8 offset-md-1'>
+  <% if @range == "User" %>
+    <thead>
+      <th></th>
+      <th>name</th>
+    </thead>
+    <tbody>
+      <h2>Users search for "<%= @word %>"</h2>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= image_tag user.get_profile_image(50,50) %></td>
+          <td><%= user.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+  <thead>
+    <th></th>
+    <th>title</th>
+    <th>opinion</th>
+  </thead>
+    <h2>Books search for "<%= @word %>"</h2>
+    <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <td><%= image_tag book.user.get_profile_image(50,50) %></td>
+          <td><%= book.title %></td>
+          <td><%= book.body %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+  </div>
+</table>
+</div>
