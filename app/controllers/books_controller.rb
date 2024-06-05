@@ -18,11 +18,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # def index
-    # @books = Book.all
-    # @book = Book.new
-    # @user = current_user
-  # end
 
   def index
     to = Time.current.at_end_of_day
@@ -35,11 +30,15 @@ class BooksController < ApplicationController
     # @books = Book.all
     @book = Book.new
     @user = current_user
+    # @book_find = Book.find(params[:id])
   end
 
 
   def show
     @book = Book.find(params[:id])
+    read_count = ReadCount.new(book_id: @book.id, user_id: current_user.id)
+    read_count.save
+    current_user.read_counts.create(book_id: @book.id)
     @user = @book.user
     @book_new = Book.new
     @book_comment = BookComment.new
