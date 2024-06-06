@@ -20,6 +20,7 @@ Rails.application.routes.draw do
      member do
        get :follows, :followers
      end 
+    get "posts_on_date" => "users#posts_on_date"
      
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
