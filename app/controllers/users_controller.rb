@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  
-  
+
+
   def show
     @user = User.find(params[:id])
     @current_entry = Entry.where(user_id: current_user.id)
@@ -11,16 +11,16 @@ class UsersController < ApplicationController
           if current.room_id == another.room_id then
             @is_room = true
             @room_id = current.room_id
-          end 
-        end 
+          end
+        end
       end
       if @is_room
       else
         @room = Room.new
         @entry = Entry.new
-      end 
+      end
     end
-    
+
     @book_new = Book.new
     @books = @user.books
     @book = Book.find(params[:id])
@@ -33,36 +33,36 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-  
+
   def index
     @users = User.all
-    @user = current_user 
+    @user = current_user
     @book = Book.new
-  end 
-  
+  end
+
   def update
     @user = User.find(params[:id])
    if @user.update(user_params)
     redirect_to user_path(@user.id)
    else
     render :edit
-   end 
+   end
   end
-  
+
   def posts_on_date
     @user = User.includes(:books).find(params[:user_id])
     @date = Date.parse(params[:created_at])
-    @books = user.books.where(created_at: date.all_day)
+    @books = @user.books.where(created_at: @date.all_day)
     render :posts_on_date_form
-  end 
-  
-  
+  end
+
+
   private
-  
+
   def user_params
     params.require(:user).permit(:name, :profile_image)
-  end 
-  
-  
-    
+  end
+
+
+
 end
