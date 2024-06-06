@@ -24,6 +24,10 @@ class UsersController < ApplicationController
     @book_new = Book.new
     @books = @user.books
     @book = Book.find(params[:id])
+    @today_book = @books.created_today
+    @yesterday_book = @books.created_yesterday
+    @this_week_book = @books.created_this_week
+    @last_week_book = @books.created_last_week
   end
 
   def edit
