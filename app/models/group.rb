@@ -12,4 +12,8 @@ class Group < ApplicationRecord
   def is_owned_by?(user)
     owner.id == user.id
   end 
+  
+  def includesUser?(user)
+    group_users.exists?(user_id: user.id)
+  end 
 end
