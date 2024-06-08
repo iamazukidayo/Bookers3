@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
 
-  get 'relationships/followings'
-  get 'relationships/followers'
-  get 'favorites/create'
-  get 'favorites/destroy'
+
+
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
