@@ -10,17 +10,16 @@
       <%= render 'newbook', book: @book %>
     </div>
 
-    <div class="col-md-8 offset-md-1">
-       <%= render 'home/search', user: @user %>
-<h2>Books</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th>Opinion</th>
-    </tr>
-  </thead>
+    <div class="col-md-8 offset-md-1 mt-5">
+      <h2>Books</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
 
  <tbody>
   <% @books.each do |book| %>
@@ -39,7 +38,7 @@
        <td><%= link_to "#{book.book_comments.count}コメント",  book_path(book.id) %></td>
        <td>閲覧数: <%= book.read_counts.count %></td>
 
-     </tr>
+    </tr>
   <% end %>
  </tbody>
 </table>

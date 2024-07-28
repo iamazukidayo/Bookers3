@@ -1,5 +1,12 @@
 <div class="container">
   <div class="row">
+    
+    <% if flash[:login_error] %>
+      <div class="alert alert-danger">
+        <%= flash[:login_error] %>
+      </div>
+    <% end %>
+  
     <div class="mx-auto offset-lg-2 mt-5">
       <h2>ログイン</h2>
         <%= form_with model: @user, url: user_session_path  do |f| %>

@@ -22,6 +22,14 @@
         <% end %>
       <% end %>
 
+    <div class = "mt-5">
+      <% if flash.now[:login] %>
+        <div class="alert alert-success">
+          <%= flash.now[:login] %>
+        </div>
+      <% end %>
+    </div>
+
      <h2>Books</h2>
        <table class="table table-hover table-inverse">
         <thead>

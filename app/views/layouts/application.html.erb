@@ -25,6 +25,9 @@
             <ul class="navbar-nav ml-auto">
                <% if user_signed_in? %>
                  <li>
+                    <%= render 'home/search', user: @user %>
+                 </li>
+                 <li>
                    <%= link_to user_path(current_user.id), class: "nav-link text-light" do %>
                      <i class="fa-solid fa-house"></i> Home
                    <% end %>
