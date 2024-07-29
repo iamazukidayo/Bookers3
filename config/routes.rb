@@ -31,7 +31,8 @@ Rails.application.routes.draw do
      get "new/mail" => "groups#new_mail"
      get "send/mail" => "groups#send_mail"
    end
-
+   
+  resources :reservations, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   get "search" => "searches#search"
 
 
