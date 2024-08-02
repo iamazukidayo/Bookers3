@@ -17,13 +17,13 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.new(reservation_params)
-     @reservation.user_id = current_user.id
+      @reservation = Reservation.new(reservation_params)
+      @reservation.start_time = Time.zone.parse(params[:reservation][:start_time])
+      @reservation.user_id = current_user.id
     if @reservation.save
       Rails.logger.debug "Reservation created successfully: #{@reservation.inspect}"
       redirect_to reservation_path(@reservation.id)
     else
-      Rails.logger.debug "Reservation creation failed: #{@reservation.errors.full_messages.join(', ')}"
       render :new
     end
   end
@@ -39,3 +39,4 @@ class ReservationsController < ApplicationController
     reservations.any? { |reservation| reservation.start_time == start_time }
   end
 end
+
