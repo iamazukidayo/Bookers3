@@ -16,17 +16,16 @@ module ReservationsHelper
              "16:30"]
   end
   
+  # def check_reservation(reservations, day, time)
+    # start_time = DateTime.parse("#{day} #{time} JST")
+    # reservations.any? { |reservation| reservation.start_time == start_time }
+  # end
   def check_reservation(reservations, day, time)
-    result = false
-    reservations_count = reservations.count
-    if reservations_count > 1
-      reservations.each do |reservation|
-        result = reservation[:day].eql?(day.strftime("%Y-%m-%d")) && reservation[:time].eql?(time)
-        return result if result
-      end 
-    elsif reservations_count == 1
-      result = reservations[0][:day].eql?(day.strftime("%Y-%m-%d")) && reservations[0][:time].eql?(time)
-      return result if result
-    end 
+  # タイムゾーンを指定して、予約のstart_timeを比較するためにUTCに変換
+    start_time = DateTime.parse("#{day} #{time} JST").in_time_zone("UTC")
+
+  # 予約のstart_timeが一致するかどうかを確認
+    reservations.any? { |reservation| reservation.start_time.in_time_zone("UTC") == start_time }
   end 
 end
+

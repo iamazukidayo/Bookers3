@@ -9,7 +9,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new
     @day = params[:day]
     @time = params[:time]
-    @start_time = DateTime.parse(@day + " " + @time + " " + "JST")
+    @start_time = DateTime.parse("#{@day} #{@time} JST")
   end
 
   def show
@@ -18,9 +18,12 @@ class ReservationsController < ApplicationController
 
   def create
     @reservation = Reservation.new(reservation_params)
+     @reservation.user_id = current_user.id
     if @reservation.save
-      redirect_to reservation_path @reservation.id
+      Rails.logger.debug "Reservation created successfully: #{@reservation.inspect}"
+      redirect_to reservation_path(@reservation.id)
     else
+      Rails.logger.debug "Reservation creation failed: #{@reservation.errors.full_messages.join(', ')}"
       render :new
     end
   end
@@ -30,6 +33,9 @@ class ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservation).permit(:day, :time, :user_id, :start_time)
   end
+
+  def check_reservation(reservations, day, time)
+    start_time = DateTime.parse("#{day} #{time} JST")
+    reservations.any? { |reservation| reservation.start_time == start_time }
+  end
 end
-
-
