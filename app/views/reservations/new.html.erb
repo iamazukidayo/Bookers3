@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-12 text-center title mt-5">
       <h1>新規予約画面</h1>
     </div>
-    <div class="col-12 mt-3 content">
+    <div class="col-6 mt-3 content text-center">
       <%= form_with model: @reservation, local: true, class: 'form' do |form| %>
         <!--%= render 'layouts/error_messages', model: form.object %>-->
-          <div class="day form-group">
+          <div class="day form-group ">
             <%= form.label :day, '日付' %>
             <%= form.text_field :day, class: 'form-control', value: @day, readonly: true %>
           </div>

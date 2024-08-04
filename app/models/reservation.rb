@@ -1,5 +1,8 @@
 class Reservation < ApplicationRecord
-  validate :valid_date
+  belongs_to :user
+
+  validates :day, presence: true
+  validates :time, presence: true
 
   def self.reservations_after_three_month
     reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
