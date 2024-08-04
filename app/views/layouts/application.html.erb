@@ -48,6 +48,11 @@
                       <i class="fa-solid fa-hotdog"></i> Log out
                     <% end %>
                   </li>
+                  <li>
+                    <%= link_to reservations_path, class:"nav-link text-light" do %>
+                      <i class="fa-solid fa-pencil"></i> reservation
+                    <% end %>
+                  </li>
                 <% else %>
                   <li>
                     <%= link_to root_path, class: "nav-link text-light" do %>
