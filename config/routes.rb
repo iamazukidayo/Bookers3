@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :books, only: [:new, :index, :show, :create, :destroy, :edit, :update] do
     resource :favorite, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
+      collection do
+        get 'color/:user_id/:color', to: 'books#color', as: 'color'
+      end
   end
 
   resources :users, only: [:show, :edit, :update, :index] do
@@ -31,7 +34,7 @@ Rails.application.routes.draw do
      get "new/mail" => "groups#new_mail"
      get "send/mail" => "groups#send_mail"
    end
-   
+
   resources :reservations, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   get "search" => "searches#search"
 

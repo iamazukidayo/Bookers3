@@ -60,3 +60,4 @@ gem 'dotenv-rails'
 gem 'bootstrap'
 gem 'bootstrap4-kaminari-views'
 gem "simple_calendar", "~> 2.0"
+gem "enum_help"

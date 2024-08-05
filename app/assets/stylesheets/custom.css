@@ -1,0 +1,21 @@
+.color-btn {
+  color: #fff; /* 文字色を白に設定 */
+}
+
+.color-btn.black {
+  background-color: #000;
+}
+
+.color-btn.white {
+  background-color: #fff;
+  color: #000; /* 白色ボタンの場合、文字色を黒に変更 */
+  border: 1px solid #000; /* 白色ボタンの場合、枠線を黒に追加 */
+}
+
+.color-btn.brown {
+  background-color: #a52a2a;
+}
+
+.color-btn.golden {
+  background-color: #ffd700;
+}

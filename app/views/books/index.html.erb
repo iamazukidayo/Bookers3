@@ -6,6 +6,13 @@
         <%= flash[:notice] %>
       </div>
 
+      <div class="btn-group mt-3" role="group">
+        <%= link_to 'Black', color_books_path(user_id: current_user.id, color: 'black'), class: 'btn btn-dark' %>
+        <%= link_to 'White', color_books_path(user_id: current_user.id, color: 'white'), class: 'btn btn-light' %>
+        <%= link_to 'Brown', color_books_path(user_id: current_user.id, color: 'brown'), class: 'btn btn-dark' %>
+      </div>
+
+
       <%= render 'users/userinfo', user: @user %>
       <%= render 'newbook', book: @book %>
     </div>

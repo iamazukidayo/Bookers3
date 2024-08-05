@@ -49,6 +49,15 @@ class BooksController < ApplicationController
     redirect_to books_path
  end
 
+
+  def color
+    @user = User.find(params[:user_id])
+    @color = params[:color] # カラーに関するロジックも追加
+    @books = Book.where(color: @color) # カラーに基づく検索結果
+  end
+
+
+
   private
 
   def book_params
