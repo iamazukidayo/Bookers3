@@ -29,9 +29,6 @@
                 <strong><%= day.day %></strong>
                 <ul class="list-unstyled">
                   <% sorted_events.fetch(day, []).each do |reservation| %>
-                    <!--<li style="background-color: #fff3cd; border-radius: 5px; padding: 5px; margin-top: 5px;">-->
-                      <!--時間: %= reservation.time %> - 予約者: %= reservation.user.name %>-->
-                    <!--</li>-->
                   <% end %>
                 </ul>
               </div>
@@ -47,7 +44,7 @@
                   <%= content_tag :span, '✖️', style: "color: red;" %>
                 <% else %>
                   <%= link_to new_reservation_path(day: day, time: time), style: "text-decoration: none;" do %>
-                    <span style="color: green;">◯</span>
+                    <span style="color: green;"> ◯ </span>
                   <% end %>
                 <% end %>
               </td>

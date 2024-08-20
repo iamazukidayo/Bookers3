@@ -1,10 +1,10 @@
-<div class="container">
+<div class="container ">
   <div class="row">
     <div class="col-12 text-center mt-5">
       <h1>予約画面</h1>
       <p>3ヶ月先まで予約することができます。</p>
     </div>
-    <div class="col-12 mt-3">
+    <div class="col-12 justify-content-between">
       <%= week_calendar events: @reservations do |date, reservations| %>
         <div>
           <strong><%= date.day %></strong>
