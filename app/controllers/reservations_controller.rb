@@ -27,6 +27,10 @@ class ReservationsController < ApplicationController
       render :new
     end
   end
+  
+  def today
+    @reservations = Reservation.where(date: Date.today)#今日の予約を取得
+  end 
 
   private
 
