@@ -36,7 +36,12 @@ Rails.application.routes.draw do
      get "send/mail" => "groups#send_mail"
    end
 
-  resources :reservations, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :reservations, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+    collection do
+      get :today
+    end 
+  end
+  
   get "search" => "searches#search"
   get 'faqs', to: 'faqs#index'
 
