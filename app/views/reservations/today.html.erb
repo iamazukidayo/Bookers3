@@ -1,9 +1,17 @@
-<div class="container">
-  <div class="row">
-    <div class="col-12 mt-5">
-      <h3>本日の予約一覧</h3>
-      
-      <if 
+<div class="container mt-5 p-4" style="background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+  <h3 class="mb-4 text-center" style="color: #333;">本日の予約一覧</h3>
+
+  <% if @reservations.any? %>
+    <div class="list-group">
+      <% @reservations.each do |reservation| %>
+        <div class="list-group-item list-group-item-action mb-3" style="border-radius: 8px; background-color: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+          <h5 class="mb-1">ユーザー: <%= reservation.user.name %></h5>
+          <p class="mb-1">予約日: <%= reservation.day.strftime('%Y年%m月%d日') %></p>
+          <p class="mb-1">予約時間: <%= reservation.time %></p>
+        </div>
+      <% end %>
     </div>
-  </div>
+  <% else %>
+    <p class="text-center mt-4" style="color: #666;">本日の予約はありません。</p>
+  <% end %>
 </div>
