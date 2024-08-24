@@ -14,4 +14,10 @@ class Reservation < ApplicationRecord
     end
     reservation_data
   end
+  
+  def cancelable
+    if self.day < Date.today + 2.days && self.status_changed? && self.status == 'キャンセル済み'
+      errors.add(:status, '2日前を過ぎた予約はキャンセルできません。')
+    end
+  end 
 end
