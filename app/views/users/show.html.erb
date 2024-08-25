@@ -58,27 +58,36 @@
 
             </tr>
                  <% end %>
- <!--予約システム                -->
-<h3>予約一覧</h3>
+
+
   <table class="table">
+    <h2><strong>予約一覧</strong></h2>
     <thead>
       <tr>
-        <th scope="col">予約日</th>
+        <th scope="col"><i class="fa-solid fa-scissors"></i> トリミング予約日</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <% @user_reservation.each do |user_reservation| %>
-        <td>
-          <%= user_reservation.day %>
-          <%= user_reservation.time %>
-        </td>
-        <td>
-          <% if reservation.day >= Date.today + 2.days %>
-            <%= link_to 'キャンセル', cancel_user_reservation_path(reservation), method: :patch, data: { confirm: '本当にキャンセルしますか？' } %>
-          <% else %>
-            <p>2日前を過ぎたため、キャンセルは電話でのみ受け付けています。</p>
-          <% end %>
+      <% @user_reservations.each do |user_reservation| %>
+        <tr>
+          <td>
+            <strong>
+            <i class="fa-regular fa-square-check"></i>
+              <%= user_reservation.day %>
+              <%= user_reservation.time %>
+            </strong>
+          </td>
+          <td>
+            <% if user_reservation.day >= Date.today + 2.days %>
+              <%= link_to 'キャンセル', cansel_reservation_path, method: :patch, data: { confirm: '本当にキャンセルしますか？' } %>
+            <% else %>
+              <p>2日前を過ぎたため、キャンセルは電話でのみ受け付けています。</p>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+
         </td>
     </tbody>
   </table>
@@ -107,8 +116,8 @@
        <% end %>
       </td>
      </tr>
-    <!--</tbody>-->
-   <!--</tbale>-->
+    </tbody>
+   </tbale>
   </div>
 
    <!--<div class = "table_width">-->
