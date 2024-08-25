@@ -58,7 +58,30 @@
 
             </tr>
                  <% end %>
-
+ <!--予約システム                -->
+<h3>予約一覧</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">予約日</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user_reservation.each do |user_reservation| %>
+        <td>
+          <%= user_reservation.day %>
+          <%= user_reservation.time %>
+        </td>
+        <td>
+          <% if reservation.day >= Date.today + 2.days %>
+            <%= link_to 'キャンセル', cancel_user_reservation_path(reservation), method: :patch, data: { confirm: '本当にキャンセルしますか？' } %>
+          <% else %>
+            <p>2日前を過ぎたため、キャンセルは電話でのみ受け付けています。</p>
+          <% end %>
+        </td>
+    </tbody>
+  </table>
 
    <div class = "table_width">
    <table class="table table-bordered">

@@ -32,15 +32,6 @@ class ReservationsController < ApplicationController
     @reservations = Reservation.where(day: Date.today )#今日の予約を取得
   end
   
-  def cancel
-    if @reservation.day >= Date.today + 2.days
-      @reservation.update(status: 'キャンセル済み')
-      redirect_to reservations_path, notice: "予約をキャンセルしました。"
-    else
-      redirect_to reservations_path, alert: '2日前を過ぎた予約は電話でのみキャンセルできます。'
-    end 
-  end 
-  
   private
 
   def reservation_params
@@ -51,9 +42,5 @@ class ReservationsController < ApplicationController
     start_time = DateTime.parse("#{day} #{time} JST")
     reservations.any? { |reservation| reservation.start_time == start_time }
   end
-  
-  def set_reservation
-    @reservation = Reservation.find(params[:id])
-  end 
 end
 

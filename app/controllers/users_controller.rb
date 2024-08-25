@@ -57,6 +57,19 @@ class UsersController < ApplicationController
     @books = @user.books.where(created_at: @date.all_day)
     render :posts_on_date_form
   end
+  
+  def cancel
+    if @reservation.user == current_user # 予約がログイン中のユーザーのものであるかを確認
+      if @reservation.day >= Date.today + 2.days
+        @reservation.update(status: 'キャンセル済み') # キャンセル処理
+        redirect_to user_path(current_user), notice: '予約をキャンセルしました。'
+      else
+        redirect_to user_path(current_user), alert: '2日前を過ぎた予約は電話でのみキャンセルできます。'
+      end
+    else
+      redirect_to root_path, alert: '他のユーザーの予約をキャンセルすることはできません。'
+    end
+  end
 
 
   private
@@ -65,6 +78,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :profile_image)
   end
 
-
+  def set_reservation
+    @reservation = Reservation.find(params[:id])
+  end
 
 end
