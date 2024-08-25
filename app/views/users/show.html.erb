@@ -82,7 +82,7 @@
           <td></td>
           <td>
             <% if user_reservation.day >= Date.today + 2.days %>
-              <%= link_to 'キャンセル', cansel_reservation_path, method: :patch, data: { confirm: '本当にキャンセルしますか？' } %>
+              <%= link_to 'キャンセル', cansel_reservation_path, method: :patch, data: { confirm: '本当にキャンセルしますか？' } ,class:"btn btn-outline-primary"%>
             <% else %>
               <p>2日前を過ぎたため、キャンセルは電話でのみ受け付けています。</p>
             <% end %>
