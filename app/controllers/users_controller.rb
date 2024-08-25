@@ -5,6 +5,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @current_entry = Entry.where(user_id: current_user.id)
     @another_entry = Entry.where(user_id: @user.id)
+    @user_reservations = current_user.reservations.where("start_time >= ?", DateTime.current).order(day: :desc)
+    @visit_histroy = current_user.reservations.where("start_time < ?", DateTime.current).where("start_time > ?", DateTime.current << 12).order(day: :desc)  
     unless @user.id == current_user.id
       @current_entry.each do |current|
         @another_entry.each do |another|
