@@ -65,6 +65,7 @@
     <thead>
       <tr>
         <th scope="col"><i class="fa-solid fa-scissors"></i> トリミング予約日</th>
+        <th scope="col">予約したメニュー</th>
         <th></th>
       </tr>
     </thead>
@@ -78,6 +79,7 @@
               <%= user_reservation.time %>
             </strong>
           </td>
+          <td></td>
           <td>
             <% if user_reservation.day >= Date.today + 2.days %>
               <%= link_to 'キャンセル', cansel_reservation_path, method: :patch, data: { confirm: '本当にキャンセルしますか？' } %>
@@ -87,8 +89,6 @@
           </td>
         </tr>
       <% end %>
-
-        </td>
     </tbody>
   </table>
 
