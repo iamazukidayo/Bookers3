@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_14_031520) do
+ActiveRecord::Schema.define(version: 2024_08_26_022232) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -99,6 +99,12 @@ ActiveRecord::Schema.define(version: 2024_08_14_031520) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "menus", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "messages", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "room_id", null: false
@@ -121,6 +127,15 @@ ActiveRecord::Schema.define(version: 2024_08_14_031520) do
     t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reservation_menus", force: :cascade do |t|
+    t.integer "reservation_id", null: false
+    t.integer "menu_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_id"], name: "index_reservation_menus_on_menu_id"
+    t.index ["reservation_id"], name: "index_reservation_menus_on_reservation_id"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -162,5 +177,7 @@ ActiveRecord::Schema.define(version: 2024_08_14_031520) do
   add_foreign_key "group_users", "users"
   add_foreign_key "messages", "rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "reservation_menus", "menus"
+  add_foreign_key "reservation_menus", "reservations"
   add_foreign_key "rooms", "users"
 end

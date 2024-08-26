@@ -1,5 +1,7 @@
 class Reservation < ApplicationRecord
   belongs_to :user
+  has_many :reservation_menus
+  has_many :menus, through: :reservation_menus
 
   validates :day, presence: true
   validates :time, presence: true
