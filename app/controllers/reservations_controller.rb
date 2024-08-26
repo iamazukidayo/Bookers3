@@ -32,6 +32,11 @@ class ReservationsController < ApplicationController
     @reservations = Reservation.where(day: Date.today )#今日の予約を取得
   end
   
+  def reservation_params
+    params.require(:reservation).permit(:date, :time, menu_ids: [])
+  end
+
+  
   private
 
   def reservation_params

@@ -77,6 +77,9 @@
             <i class="fa-regular fa-square-check"></i>
               <%= user_reservation.day %>
               <%= user_reservation.time %>
+              <% reservation.menus.each do |menu| %>
+                <li><%= menu.name %></li>
+              <% end %>
             </strong>
           </td>
           <td></td>
