@@ -12,6 +12,16 @@
         <label><strong>時間:</strong></label>
         <p style="display:inline;"><%= @reservation.time %></p>
       </div>
+      <div>
+        <label><strong>メニュー:</strong></label>
+        <% if @reservation.menus.present? %>
+          <% @reservation.menus.each do |menu| %>
+            <p style="display:inline"><%= menu.name %></p>
+          <% end %>
+        <% else %>
+          <p style="display:inline">メニューが選択されていません</p>
+        <% end %>
+    　</div>
     </div>
     <div class="col-12 text-right">
       <%= link_to '予約画面に戻る', reservations_path %>
