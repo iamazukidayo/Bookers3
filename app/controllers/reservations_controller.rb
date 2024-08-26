@@ -1,5 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_reservation, only: [:show, :destroy]
 
   def index
     @reservations = Reservation.where("day >= ?", Date.current)
@@ -34,11 +35,6 @@ class ReservationsController < ApplicationController
     @reservations = Reservation.where(day: Date.today) # 今日の予約を取得
   end
 
-class ReservationsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_reservation, only: [:show, :destroy]
-
-  # 予約を削除するアクション
   def destroy
     if @reservation.user == current_user
       if @reservation.day >= Date.today + 2.days
@@ -57,10 +53,6 @@ class ReservationsController < ApplicationController
   def set_reservation
     @reservation = Reservation.find(params[:id])
   end
-end
-
-
-  private
 
   def reservation_params
     params.require(:reservation).permit(:day, :time, :user_id, :start_time, menu_ids: [])
