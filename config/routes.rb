@@ -37,14 +37,14 @@ Rails.application.routes.draw do
    end
 
   resources :reservations, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+    member do
+      patch :cancel
+    end
     collection do
       get :today
-    end 
-    member do
-      patch :cansel
     end
   end
-  
+
   get "search" => "searches#search"
   get 'faqs', to: 'faqs#index'
 

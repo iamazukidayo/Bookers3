@@ -2,7 +2,9 @@ class ReservationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
+    @reservations = Reservation.where("day >= ?", Date.current)
+                               .where("day < ?", Date.current >> 3)
+                               .order(day: :desc)
   end
 
   def new
@@ -17,9 +19,9 @@ class ReservationsController < ApplicationController
   end
 
   def create
-      @reservation = Reservation.new(reservation_params)
-      @reservation.start_time = Time.zone.parse(params[:reservation][:start_time])
-      @reservation.user_id = current_user.id
+    @reservation = Reservation.new(reservation_params)
+    @reservation.start_time = Time.zone.parse(params[:reservation][:start_time])
+    @reservation.user_id = current_user.id
     if @reservation.save
       Rails.logger.debug "Reservation created successfully: #{@reservation.inspect}"
       redirect_to reservation_path(@reservation.id)
@@ -29,18 +31,39 @@ class ReservationsController < ApplicationController
   end
 
   def today
-    @reservations = Reservation.where(day: Date.today )#今日の予約を取得
-  end
-  
-  def reservation_params
-    params.require(:reservation).permit(:date, :time, menu_ids: [])
+    @reservations = Reservation.where(day: Date.today) # 今日の予約を取得
   end
 
-  
+class ReservationsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_reservation, only: [:show, :destroy]
+
+  # 予約を削除するアクション
+  def destroy
+    if @reservation.user == current_user
+      if @reservation.day >= Date.today + 2.days
+        @reservation.destroy
+        redirect_to reservations_path, notice: '予約をキャンセルしました。'
+      else
+        redirect_to reservations_path, alert: '2日前を過ぎた予約は電話でのみキャンセルできます。'
+      end
+    else
+      redirect_to root_path, alert: '他のユーザーの予約をキャンセルすることはできません。'
+    end
+  end
+
+  private
+
+  def set_reservation
+    @reservation = Reservation.find(params[:id])
+  end
+end
+
+
   private
 
   def reservation_params
-    params.require(:reservation).permit(:day, :time, :user_id, :start_time)
+    params.require(:reservation).permit(:day, :time, :user_id, :start_time, menu_ids: [])
   end
 
   def check_reservation(reservations, day, time)
@@ -48,4 +71,3 @@ class ReservationsController < ApplicationController
     reservations.any? { |reservation| reservation.start_time == start_time }
   end
 end
-

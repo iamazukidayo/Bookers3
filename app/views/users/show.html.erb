@@ -60,40 +60,47 @@
                  <% end %>
 
 
-  <table class="table">
-    <h2><strong>予約一覧</strong></h2>
-    <thead>
+<table class="table">
+  <h2><strong>予約一覧</strong></h2>
+  <thead>
+    <tr>
+      <th scope="col"><i class="fa-solid fa-scissors"></i> トリミング予約日</th>
+      <th scope="col">予約したメニュー</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user_reservations.each do |user_reservation| %>
       <tr>
-        <th scope="col"><i class="fa-solid fa-scissors"></i> トリミング予約日</th>
-        <th scope="col">予約したメニュー</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @user_reservations.each do |user_reservation| %>
-        <tr>
-          <td>
-            <strong>
+        <td>
+          <strong>
             <i class="fa-regular fa-square-check"></i>
-              <%= user_reservation.day %>
-              <%= user_reservation.time %>
-              <% reservation.menus.each do |menu| %>
-                <li><%= menu.name %></li>
-              <% end %>
-            </strong>
-          </td>
-          <td></td>
-          <td>
-            <% if user_reservation.day >= Date.today + 2.days %>
-              <%= link_to 'キャンセル', cansel_reservation_path, method: :patch, data: { confirm: '本当にキャンセルしますか？' } ,class:"btn btn-outline-primary"%>
-            <% else %>
-              <p>2日前を過ぎたため、キャンセルは電話でのみ受け付けています。</p>
+            <%= user_reservation.day %>
+            <%= user_reservation.time %>
+          </strong>
+        </td>
+        <td>
+          <% if user_reservation.menus.any? %>
+            <% user_reservation.menus.each do |menu| %>
+              <li><%= menu.name %></li>
             <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+          <% else %>
+            <p>メニューが選択されていません。</p>
+          <% end %>
+        </td>
+        <td>
+          <% if user_reservation.day >= Date.today + 2.days %>
+          <%= link_to 'キャンセル', reservation_path(user_reservation), method: :delete, data: { confirm: '本当にキャンセルしますか？' }, class: 'btn btn-outline-primary' %>
+          <!--%= link_to 'キャンセル', cancel_reservation_path(user_reservation), method: :patch, data: { confirm: '本当にキャンセルしますか？' }, class: "btn btn-outline-primary" %>-->
+          <% else %>
+            <p>2日前を過ぎたため、キャンセルは電話でのみ受け付けています。</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
    <div class = "table_width">
    <table class="table table-bordered">

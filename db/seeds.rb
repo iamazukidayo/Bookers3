@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 Menu.create([
   { name: '全身カット（大型犬）' },
   { name: '全身カット（中型犬）' },
