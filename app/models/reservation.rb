@@ -2,6 +2,7 @@ class Reservation < ApplicationRecord
   belongs_to :user
   has_many :reservation_menus
   has_many :menus, through: :reservation_menus
+  belongs_to :menu
 
   validates :day, presence: true
   validates :time, presence: true
@@ -16,10 +17,16 @@ class Reservation < ApplicationRecord
     end
     reservation_data
   end
-  
+
   def cancelable
     if self.day < Date.today + 2.days && self.status_changed? && self.status == 'キャンセル済み'
       errors.add(:status, '2日前を過ぎた予約はキャンセルできません。')
     end
-  end 
+  end
+
+  private
+
+  def set_end_time
+    self.end_time = start_time + menu.duration.minutes
+  end
 end
