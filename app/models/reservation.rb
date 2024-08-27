@@ -6,7 +6,7 @@ class Reservation < ApplicationRecord
 
   validates :day, presence: true
   validates :time, presence: true
-  
+  before_validation :calculate_end_time
   before_save :set_end_time
   validate :no_overlap
 
@@ -27,16 +27,29 @@ class Reservation < ApplicationRecord
     end
   end
 
+  def calculate_end_time
+    if menu.present?
+      self.end_time = start_time + menu.duration.minutes
+    else
+      errors.add(:menu, "メニューが選択されていません")
+    end
+  end
+
   private
+  
+  def reservation_params
+    params.require(:reservation).permit(:day, :time, :user_id, :start_time, :menu_id)
+  end
+
 
   def set_end_time
     self.end_time = start_time + menu.duration.minutes
   end
-  
+
   def no_overlap
-    overlapping_reservations = Reservation.where("? > end_time AND start_time < ?", start_time, end_time)
+    overlapping_reservations = Reservation.where("? < end_time AND start_time < ?", start_time, end_time)
     if overlapping_reservations.exists?
       errors.add(:base, "この時間帯は既に予約されています。")
-    end 
-  end 
+    end
+  end
 end

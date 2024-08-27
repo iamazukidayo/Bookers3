@@ -24,6 +24,7 @@ class ReservationsController < ApplicationController
     @reservation.start_time = Time.zone.parse(params[:reservation][:start_time])
     @reservation.user_id = current_user.id
     if @reservation.save
+      # redirect_to reservation_path(@reservation), notice: '予約が作成されました。'
       Rails.logger.debug "Reservation created successfully: #{@reservation.inspect}"
       redirect_to reservation_path(@reservation.id)
     else
