@@ -24,9 +24,8 @@ class ReservationsController < ApplicationController
     @reservation.start_time = Time.zone.parse(params[:reservation][:start_time])
     @reservation.user_id = current_user.id
     if @reservation.save
-      # redirect_to reservation_path(@reservation), notice: '予約が作成されました。'
       Rails.logger.debug "Reservation created successfully: #{@reservation.inspect}"
-      redirect_to reservation_path(@reservation.id)
+      redirect_to reservation_path(@reservation)
     else
       render :new
     end
@@ -39,8 +38,12 @@ class ReservationsController < ApplicationController
   def destroy
     if @reservation.user == current_user
       if @reservation.day >= Date.today + 2.days
-        @reservation.destroy
-        redirect_to reservations_path, notice: '予約をキャンセルしました。'
+        # 予約に関連するデータを適切に処理する必要があるか確認する
+        if @reservation.destroy
+          redirect_to reservations_path, notice: '予約をキャンセルしました。'
+        else
+          redirect_to reservations_path, alert: '予約のキャンセル中にエラーが発生しました。'
+        end
       else
         redirect_to reservations_path, alert: '2日前を過ぎた予約は電話でのみキャンセルできます。'
       end
