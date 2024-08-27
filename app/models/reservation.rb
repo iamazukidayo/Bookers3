@@ -6,6 +6,9 @@ class Reservation < ApplicationRecord
 
   validates :day, presence: true
   validates :time, presence: true
+  
+  before_save :set_end_time
+  validate :no_overlap
 
   def self.reservations_after_three_month
     reservations = Reservation.all.where("day >= ?", Date.current).where("day < ?", Date.current >> 3).order(day: :desc)
@@ -29,4 +32,11 @@ class Reservation < ApplicationRecord
   def set_end_time
     self.end_time = start_time + menu.duration.minutes
   end
+  
+  def no_overlap
+    overlapping_reservations = Reservation.where("? > end_time AND start_time < ?", start_time, end_time)
+    if overlapping_reservations.exists?
+      errors.add(:base, "この時間帯は既に予約されています。")
+    end 
+  end 
 end
