@@ -1,7 +1,9 @@
 class Reservation < ApplicationRecord
+  
   belongs_to :user
-  has_many :reservation_menus
-  has_many :menus, through: :reservation_menus
+  has_many :reservation_menus, dependent: :destroy
+  has_many :menus, through: :reservation_menus, dependent: :destroy
+
   # belongs_to :menu
 
   validates :day, presence: true
