@@ -37,9 +37,10 @@ class Reservation < ApplicationRecord
     # end
   # end
 
-  def check_reservation(reservations, day, time)
-      start_time = DateTime.parse("#{day} #{time} JST")
-      reservations.any? { |reservation| reservation.start_time == start_time }
+  def check_reservation(day, time)
+    start_time = DateTime.parse("#{day} #{time} JST")
+    overlapping_reservations = Reservation.where(start_time: start_time)
+    overlapping_reservations.exists?
   end
 
 
