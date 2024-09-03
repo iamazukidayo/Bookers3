@@ -1,4 +1,4 @@
-<h2>New book</h2>
+<h2 class="display-4">New Book</h2>
   <% if book.errors.any? %>
    <%= book.errors.count %>errors prohibited this obj form being saved:
    <ul>
@@ -14,8 +14,7 @@
    <p><%= f.text_field :title %></p>
 
 <p><label for="book_opinion">Opinion</label></p>
-  <p><%= f.text_area :body %></p>
-
+<p><%= f.text_area :body %></p>
 <p><%= f.submit 'Create Book' %>
 
 
