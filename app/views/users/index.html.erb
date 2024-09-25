@@ -1,5 +1,3 @@
-
-
 <div class="container px-5 px-sm-0">
   <div class="row">
     <div class="col-md-3">
@@ -14,39 +12,33 @@
         <%= link_to "グループ一覧", groups_path %>
       </p>
 
-        <table class="table">
-          <thaed>
-            <tr>
-              <th>image</th>
-              <th>name</th>
-
-            </tr>
-          </thaed>
+      <table class="table">
+        <thaed>
+          <tr>
+            <th>image</th>
+            <th>name</th>
+          </tr>
+        </thaed>
 
         <tbody>
           <% @users.each do |user| %>
-           <tr>
-             <td>
-               <%= image_tag user.get_profile_image(100,100) %>
-             </td>
-             <td>
-                <%= user.name %>
-             </td>
-             <td>
-                <%= link_to 'show', user_path(user.id) %>
-             </td>
+            <tr>
+              <td>
+                <%= image_tag user.get_profile_image(100,100) %>
+              </td>
+              <td><%= user.name %></td>
+              <td><%= link_to 'show', user_path(user.id) %></td>
 
-             <td>
-             <% if current_user.following?(user) %>
-               <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete %>
-             <% else %>
-               <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
-             <% end %>
-             </td>
-           </tr>
+              <td>
+                <% if current_user.following?(user) %>
+                  <%= link_to "フォロー外す", user_relationships_path(user.id), method: :delete %>
+                <% else %>
+                  <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
         </tbody>
-   </div>
+      </table>
+    </div>
   </div>
-</div>
-</table>
