@@ -55,77 +55,77 @@
               <td><% link_to "#{book.book_comments.count}コメント", book_path(book.id)  %></td>
 
             </tr>
-                 <% end %>
-
-
-<table class="table">
-  <h2><strong>予約一覧</strong></h2>
-  <thead>
-    <tr>
-      <th scope="col"><i class="fa-solid fa-scissors"></i> トリミング予約日</th>
-      <th scope="col">予約したメニュー</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user_reservations.each do |user_reservation| %>
-      <tr>
-        <td>
-          <strong>
-            <i class="fa-regular fa-square-check"></i>
-            <%= user_reservation.day %>
-            <%= user_reservation.time %>
-          </strong>
-        </td>
-        <td>
-          <% if user_reservation.menus.any? %>
-            <% user_reservation.menus.each do |menu| %>
-              <li><%= menu.name %></li>
-            <% end %>
-          <% else %>
-            <p>メニューが選択されていません。</p>
           <% end %>
-        </td>
-        <td>
-          <% if user_reservation.day >= Date.today + 2.days %>
-          <%= link_to 'キャンセル', reservation_path(user_reservation), method: :delete, data: { confirm: '本当にキャンセルしますか？' }, class: 'btn btn-outline-primary' %>
-          <!--%= link_to 'キャンセル', cancel_reservation_path(user_reservation), method: :patch, data: { confirm: '本当にキャンセルしますか？' }, class: "btn btn-outline-primary" %>-->
-          <% else %>
-            <p>2日前を過ぎたため、キャンセルは電話でのみ受け付けています。</p>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 
-   <div class = "table_width">
-   <table class="table table-bordered">
+  <table class="table">
+    <h2><strong>予約一覧</strong></h2>
     <thead>
       <tr>
-        <h3>投稿数の前日比・前週比</h3>
-      <th>今日の投稿数</th>
-      <th>前日の投稿数</th>
-      <th>前日比</th>
-     </tr>
+        <th scope="col"><i class="fa-solid fa-scissors"></i> トリミング予約日</th>
+        <th scope="col">予約したメニュー</th>
+        <th></th>
+      </tr>
     </thead>
-
     <tbody>
-     <tr>
-     　<td><%= @today_book.count %></td>
-     　<td><%= @yesterday_book.count %></td>
-     　<td>
-       <% if @yesterday_book.count == 0 %>
-        前日の投稿はありません
-       <% else %>
-       　<% @the_day_before =   @today_book.count / @yesterday_book.count.to_f  %>
-       　<%= (@the_day_before * 100).round %>
-       <% end %>
-      </td>
-     </tr>
+      <% @user_reservations.each do |user_reservation| %>
+        <tr>
+          <td>
+            <strong>
+              <i class="fa-regular fa-square-check"></i>
+              <%= user_reservation.day %>
+              <%= user_reservation.time %>
+            </strong>
+          </td>
+          <td>
+            <% if user_reservation.menus.any? %>
+              <% user_reservation.menus.each do |menu| %>
+                <li><%= menu.name %></li>
+              <% end %>
+            <% else %>
+              <p>メニューが選択されていません。</p>
+            <% end %>
+          </td>
+          <td>
+            <% if user_reservation.day >= Date.today + 2.days %>
+            <%= link_to 'キャンセル', reservation_path(user_reservation), method: :delete, data: { confirm: '本当にキャンセルしますか？' }, class: 'btn btn-outline-primary' %>
+            <!--%= link_to 'キャンセル', cancel_reservation_path(user_reservation), method: :patch, data: { confirm: '本当にキャンセルしますか？' }, class: "btn btn-outline-primary" %>-->
+            <% else %>
+              <p>2日前を過ぎたため、キャンセルは電話でのみ受け付けています。</p>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
-   </tbale>
+  </table>
+
+
+  <div class = "table_width">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <h3>投稿数の前日比・前週比</h3>
+          <th>今日の投稿数</th>
+          <th>前日の投稿数</th>
+          <th>前日比</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+     　    <td><%= @today_book.count %></td>
+     　    <td><%= @yesterday_book.count %></td>
+     　    <td>
+            <% if @yesterday_book.count == 0 %>
+              前日の投稿はありません
+            <% else %>
+         　    <% @the_day_before =   @today_book.count / @yesterday_book.count.to_f  %>
+         　    <%= (@the_day_before * 100).round %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </tbale>
   </div>
 
    <!--<div class = "table_width">-->
@@ -140,20 +140,19 @@
     </thead>
     <tbody>
       <tr>
-          <td><%= @this_week_book.count %></td>
-          <td><%= @last_week_book.count %></td>
-          <td>
-              <% if @last_week_book.count == 0 %>
-                先週の投稿はありません
-              <% else %>
-               <% @the_week_before = @this_week_book.count / @last_week_book.count %>
-               <%= (@the_week_before * 100).round %>
-              <% end %>
-          </td>
+        <td><%= @this_week_book.count %></td>
+        <td><%= @last_week_book.count %></td>
+        <td>
+          <% if @last_week_book.count == 0 %>
+            先週の投稿はありません
+          <% else %>
+            <% @the_week_before = @this_week_book.count / @last_week_book.count %>
+            <%= (@the_week_before * 100).round %>
+          <% end %>
+        </td>
       </tr>
     </tbody>
-   </table>
-  </div>
+  
 
 
 
