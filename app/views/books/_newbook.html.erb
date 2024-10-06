@@ -1,35 +1,31 @@
 <h2 class="display-4">New Book</h2>
   <% if book.errors.any? %>
-   <%= book.errors.count %>errors prohibited this obj form being saved:
-   <ul>
-       <% book.errors.full_messages.each do |message| %>
-         <li><%= message %></li>
-       <% end %>
-   </ul>
+    <%= book.errors.count %>errors prohibited this obj form being saved:
+      <ul>
+        <% book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
   <% end %>
 
 <%= form_with model: book do |f| %>
-
-<p><label for="book_title">Title</label></p>
-   <p><%= f.text_field :title %></p>
-
-<p><label for="book_opinion">Opinion</label></p>
-<p><%= f.text_area :body %></p>
-<p><%= f.submit 'Create Book' %>
-
-
-<div class="form-group row" id="star">
-    <%= f.label :star,'評価 ', class:'col-md-3 col-form-label' %>
-    <%= f.hidden_field :star, id: :review_star %>
-　　　　</div>
-  <script>
-　$('#star').empty();
-  $('#star').raty({
-    size     : 36,
-    starOff:  '<%= asset_path('star-off.png') %>',
-    starOn : '<%= asset_path('star-on.png') %>',
- 　　scoreName: 'book[star]',
-    half: false,
-  });
-  </script>
+  <p><label for="book_title">Title</label></p>
+    <p><%= f.text_field :title %></p>
+      <p><label for="book_opinion">Opinion</label></p>
+      <p><%= f.text_area :body %></p>
+      <p><%= f.submit 'Create Book' %>
+      <div class="form-group row" id="star">
+        <%= f.label :star,'評価 ', class:'col-md-3 col-form-label' %>
+          <%= f.hidden_field :star, id: :review_star %>
+　　　</div>
+      <script>
+　      $('#star').empty();
+        $('#star').raty({
+        size     : 36,
+        starOff:  '<%= asset_path('star-off.png') %>',
+        starOn : '<%= asset_path('star-on.png') %>',
+     　　scoreName: 'book[star]',
+        half: false,
+        });
+      </script>
 <% end %>
